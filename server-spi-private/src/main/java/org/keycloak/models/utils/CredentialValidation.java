@@ -30,7 +30,7 @@ public class CredentialValidation {
             TimeBasedOTP validator = new TimeBasedOTP(credentialModel.getOTPCredentialData().getAlgorithm(),
                     credentialModel.getOTPCredentialData().getDigits(), credentialModel.getOTPCredentialData().getPeriod(),
                     lookAheadWindow);
-            return validator.validateTOTP(token, credentialModel.getOTPSecretData().getValue());
+            return validator.validateTOTP(token, credentialModel.getOTPSecretData().getValue().getBytes());
         } else {
             HmacOTP validator = new HmacOTP(credentialModel.getOTPCredentialData().getDigits(),
                     credentialModel.getOTPCredentialData().getAlgorithm(), lookAheadWindow);
