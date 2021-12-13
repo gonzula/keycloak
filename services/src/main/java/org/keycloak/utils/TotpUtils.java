@@ -24,7 +24,6 @@ import com.google.zxing.qrcode.QRCodeWriter;
 import org.keycloak.common.util.Base64;
 import org.keycloak.models.RealmModel;
 import org.keycloak.models.UserModel;
-import org.keycloak.models.utils.Base32;
 
 import java.io.ByteArrayOutputStream;
 
@@ -34,7 +33,7 @@ import java.io.ByteArrayOutputStream;
 public class TotpUtils {
 
     public static String encode(String totpSecret) {
-        String encoded = Base32.encode(totpSecret.getBytes());
+        String encoded = totpSecret;
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < encoded.length(); i += 4) {
             sb.append(encoded.substring(i, i + 4 < encoded.length() ? i + 4 : encoded.length()));
@@ -47,8 +46,7 @@ public class TotpUtils {
 
     public static String decode(String totpSecretEncoded) {
         String encoded = totpSecretEncoded.replace(" ", "");
-        byte[] bytes = Base32.decode(encoded);
-        return new String(bytes);
+        return encoded;
     }
 
     public static String qrCode(String totpSecret, RealmModel realm, UserModel user) {

@@ -19,7 +19,6 @@ package org.keycloak.models;
 
 import org.jboss.logging.Logger;
 import org.keycloak.models.credential.OTPCredentialModel;
-import org.keycloak.models.utils.Base32;
 import org.keycloak.models.utils.HmacOTP;
 
 import java.io.Serializable;
@@ -144,7 +143,7 @@ public class OTPPolicy implements Serializable {
              */
             String label = issuerName + ":" + accountName;
 
-            String parameters = "secret=" + Base32.encode(secret.getBytes()) //
+            String parameters = "secret=" + secret //
                                 + "&digits=" + digits //
                                 + "&algorithm=" + algToKeyUriAlg.get(algorithm) //
                                 + "&issuer=" + issuerName;

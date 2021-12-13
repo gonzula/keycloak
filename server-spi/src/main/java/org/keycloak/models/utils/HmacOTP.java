@@ -17,6 +17,8 @@
 
 package org.keycloak.models.utils;
 
+import org.keycloak.models.utils.Base32;
+
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import java.math.BigInteger;
@@ -52,7 +54,7 @@ public class HmacOTP {
             char c = chars.charAt(r.nextInt(chars.length()));
             sb.append(c);
         }
-        return sb.toString();
+        return Base32.encode(sb.toString().getBytes());
     }
 
     public String generateHOTP(String key, int counter) {
@@ -112,7 +114,7 @@ public class HmacOTP {
 
         // Adding one byte to get the right conversion
         // byte[] k = hexStr2Bytes(key);
-        byte[] k = key.getBytes();
+        byte[] k = Base32.decode(key);
 
         hash = hmac_sha1(crypto, k, msg);
 
